@@ -1,0 +1,12 @@
+body{
+  background: #141414;
+  color: #eee;
+  padding: 0px;
+  margin: 0px;
+}
+
+#snowcanv{
+  background: #00000000;
+  position: fixed;
+  border-top: 4px solid #fff;
+}
