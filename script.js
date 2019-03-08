@@ -5,6 +5,7 @@ window.onload = function(){
   var g = 9.81;
   var imgsrc = './snow.png';
   var count = 200;
+  var parallax = 0.04;
   //--------
 
   var canv = document.getElementById('snowcanv')
@@ -13,7 +14,6 @@ window.onload = function(){
   var width, height;
 
   window.addEventListener('resize', resizeCanvas, false);
-
     function resizeCanvas() {
       width = window.innerWidth;
       height = window.innerHeight;
@@ -22,29 +22,35 @@ window.onload = function(){
     }
     resizeCanvas();
 
-
-  var snowimg = new Image(128, 128);
-  snowimg.src = imgsrc;
-
-  function createSnow() {
-    var snowflake = function () {
-      this.x = Math.round(Math.random() * (width - 0) + 0);
-      this.y = Math.round(Math.random() * (0 - height) + 0);
-      this.dx = 1; //speed x
-      this.dy = 1;  //speed y
-
-      //Размер снежинки 5 - 7 мм и весит она 0,004 грамма
-      this.size = Math.round(Math.random() * (7 - 5) + 5) * size;
-      this.m = Math.round(Math.random() * (0.006 * 0.001 - 0.002 * 0.001) + 0.002 * 0.001);
-
-      this.image = snowimg;
+  window.addEventListener("mousemove", function(event) {
+    console.log(event.movementX + " " + event.movementY);
+    for (var i = 0; i < snowflakes.length; i++) {
+      snowflakes[i].x -= event.movementX * parallax;
+      snowflakes[i].y -= event.movementY * parallax;
     }
-    snowflakes.push(new snowflake())
+  });
+
+
+
+
+  var snowflake = function () {
+    this.x = Math.round(Math.random() * width);
+    this.y = Math.round(Math.random() * -height);
+    this.dx = 1; //speed x
+    this.dy = 1;  //speed y
+
+    //Размер снежинки 5 - 7 мм и весит она 0,004 грамма
+    this.size = Math.round(Math.random() * (7 - 5) + 5) * size ;
+    this.m = Math.round(Math.random() * (0.006 * 0.001 - 0.002 * 0.001) + 0.002 * 0.001);
+
+    var snowimg = new Image(128, 128);
+    snowimg.src = imgsrc;
+    this.image = snowimg;
   }
 
   var snowflakes = [];
   for(var i = 0; i < count; i++){
-    createSnow();
+    snowflakes.push(new snowflake())
   }
 
   console.log(snowflakes);
@@ -60,7 +66,7 @@ window.onload = function(){
 
       if (snowflakes[i].y > height){
         snowflakes.splice(i, 1);
-        createSnow();
+        snowflakes.push(new snowflake())
       }
 
     }
