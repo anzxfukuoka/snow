@@ -1,14 +1,30 @@
+
+// preferences
+var size = 3;
+var g = 9.81;
+var imgsrc = './sakura.png';  // ./snow.png
+var count = 100;
+var parallax = 0.04;
+var rainbowborder = true;
+// --------
+
 window.onload = function(){
 
-  //gen pref
-  var size = 2;
-  var g = 9.81;
-  var imgsrc = './snow.png';
-  var count = 200;
-  var parallax = 0.04;
-  //--------
+  var canv = document.createElement("CANVAS");
+  canv.id = 'snowcanv';
+  canv.style.backgroundColor = "#00000000";
+  canv.style.position = "fixed";
+  canv.style.left = 0;
+  canv.style.top = 0;
+  canv.style.width = "100%";
+  canv.style.zIndex = 10000;
 
-  var canv = document.getElementById('snowcanv')
+  if(rainbowborder){
+    canv.style.borderTop = "4px solid #fff";
+    Rainbow(canv);
+  }
+
+  document.body.appendChild(canv);
   var ctx = canv.getContext('2d');
 
   var width, height;
@@ -23,7 +39,6 @@ window.onload = function(){
     resizeCanvas();
 
   window.addEventListener("mousemove", function(event) {
-    console.log(event.movementX + " " + event.movementY);
     for (var i = 0; i < snowflakes.length; i++) {
       snowflakes[i].x -= event.movementX * parallax;
       snowflakes[i].y -= event.movementY * parallax;
@@ -39,9 +54,9 @@ window.onload = function(){
     this.dx = 1; //speed x
     this.dy = 1;  //speed y
 
-    //Размер снежинки 5 - 7 мм и весит она 0,004 грамма
-    this.size = Math.round(Math.random() * (7 - 5) + 5) * size ;
-    this.m = Math.round(Math.random() * (0.006 * 0.001 - 0.002 * 0.001) + 0.002 * 0.001);
+    //Размер снежинки 5 - 7 мм и весит она  грамма
+    this.size = (Math.random() * (7 - 5) + 5) * size ;
+    this.m = Math.random() * 0.004 * 0.001;
 
     var snowimg = new Image(128, 128);
     snowimg.src = imgsrc;
@@ -53,7 +68,6 @@ window.onload = function(){
     snowflakes.push(new snowflake())
   }
 
-  console.log(snowflakes);
 
   var update = function(){
     for (var i = 0; i < snowflakes.length; i++) {
@@ -63,6 +77,7 @@ window.onload = function(){
 
       snowflakes[i].y += snowflakes[i].dy;
       snowflakes[i].dy += snowflakes[i].m * g; //F = mg
+      console.log(snowflakes[i].m * g);
 
       if (snowflakes[i].y > height){
         snowflakes.splice(i, 1);
@@ -71,7 +86,6 @@ window.onload = function(){
 
     }
     draw();
-    //console.log(snowflakes);
   }
 
   var draw = function(){
@@ -84,5 +98,20 @@ window.onload = function(){
   }
 
   var loop = setInterval(update, 1000/60);
+
+}
+
+var Rainbow = function(el){
+  var i = 0;
+  var r = function(){
+  	if (i < 360) {
+  		var step = i % 360;
+  		i++;
+  	}else i = 0;
+  	return "hsl(" + step + ", 100%, 50% )";
+  }
+  setInterval(function(){
+  	el.style.borderColor = r();
+  }, 20);
 
 }
