@@ -2,7 +2,7 @@
 // preferences
 var size = 3;
 var g = 9.81;
-var imgsrc = 'https://raw.githubusercontent.com/anzxfukuoka/snow/master/sakura.png';  // ./snow.png
+var imgsrc = 'https://cdn.iconscout.com/icon/free/png-256/cherry-blossom-flower-smell-33913.png';  // ./snow.png
 var count = 100;
 var parallax = 0.04;
 var rainbowborder = true;
