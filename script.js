@@ -77,7 +77,6 @@ window.onload = function(){
 
       snowflakes[i].y += snowflakes[i].dy;
       snowflakes[i].dy += snowflakes[i].m * g; //F = mg
-      //console.log(snowflakes[i].m * g);
 
       if (snowflakes[i].y > height){
         snowflakes.splice(i, 1);
