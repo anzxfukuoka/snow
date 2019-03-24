@@ -2,7 +2,7 @@
 // preferences
 var size = 3;
 var g = 9.81;
-var imgsrc = './sakura.png?raw=true';  // ./snow.png?raw=true
+var imgsrc = 'https://raw.githubusercontent.com/anzxfukuoka/snow/master/sakura.png';  // ./snow.png
 var count = 100;
 var parallax = 0.04;
 var rainbowborder = true;
@@ -77,7 +77,7 @@ window.onload = function(){
 
       snowflakes[i].y += snowflakes[i].dy;
       snowflakes[i].dy += snowflakes[i].m * g; //F = mg
-      console.log(snowflakes[i].m * g);
+      //console.log(snowflakes[i].m * g);
 
       if (snowflakes[i].y > height){
         snowflakes.splice(i, 1);
