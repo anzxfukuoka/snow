@@ -2,7 +2,7 @@
 // preferences
 var size = 3;
 var g = 9.81;
-var imgsrc = './sakura.png';  // ./snow.png
+var imgsrc = './sakura.png?raw=true';  // ./snow.png?raw=true
 var count = 100;
 var parallax = 0.04;
 var rainbowborder = true;
